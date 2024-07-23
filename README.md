@@ -4,7 +4,7 @@
 
 ## Website Link
 
-[Submission](https://google.com)
+[NZ Birds Website Link](https://leesa178.cspages.otago.ac.nz/cosc203/)
 
 ## Known Issues
 

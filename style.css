@@ -1,6 +1,6 @@
 .header {
     background-color: rgb(116, 224, 136);
-    /*font-family: "Proxima Nova", sans-serif;*/
+    font-family: "Proxima Nova", sans-serif;
     height: 80px;
     display: flex;
     justify-content: center;
@@ -17,6 +17,8 @@
 
 .main-content {
     display: inline;
+    padding: 20px;
+    flex: 3;
 }
 
 .icon {
@@ -26,8 +28,14 @@
     margin-left: 10px;
 }
 
-.main-body {
+.document-body {
     background-color: rgb(171, 229, 187);
+}
+
+.sidebar {
+    position: static; /* doesn't move */
+    flex: 1;
+    padding: 20px;
 }
 
 .footer {

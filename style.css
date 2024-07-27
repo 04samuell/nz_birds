@@ -19,14 +19,14 @@
 }
 
 .nav {
-    background-color: violet;
+    background-color: rgb(116, 224, 136);
     grid-row: span 1;
     grid-column: span 1;
     border-radius: 10px; /* rounded corners */
 }
 
 .main-content {
-    background-color: red;
+    background-color: rgb(116, 224, 136);
     padding: 20px;
     border-radius: 10px; /* rounded corners */
 
@@ -37,6 +37,7 @@
 .footer {
     background-color: rgb(116, 224, 136);
     font-family: "Proxima Nova", sans-serif;
+    font-style: italic;
     height: 65px;
     display: flex;
     justify-content: center;
@@ -58,10 +59,32 @@
 .document-body {
     background-color: rgb(171, 229, 187);
     display: grid;
-    grid-template-rows: auto 1fr auto; /* 3 rows, second is large */
+    grid-template-rows: auto 1fr auto; /* 3 rows */
     grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 columns of same size */
     gap: 16px;
     
     height: 100%;
     min-height: 100vh;
+}
+
+#search-bar {
+    width: 75%;
+    height: 30px;
+    border-radius: 10px; /* rounded corners */
+    justify-content: center;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid black;
+
+}
+
+#search-button {
+    width: 25%;
+    height: 30px;
+    border-radius: 10px; /* rounded corners */
+    justify-content: center;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid black;
+
 }

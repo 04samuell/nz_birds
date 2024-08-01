@@ -11,7 +11,7 @@
 
 <body class="document-body">
     <header class="header">
-        <h1 id="header-text">
+        <h1 class="header-text">
             <img src="images/icon.png" alt="site icon" class="icon">
             New Zealand Birds
             <img src="images/icon.png" alt="site icon" class="icon">
@@ -19,13 +19,36 @@
     </header>
 
     <nav class="nav">
-        <h1>
-            Navigation
+        <h1 class="sub-title">
+            Filter Birds
         </h1>
 
         <form>
-            <input type="text" name="search" id="search-bar" placeholder="Search birds">
-            <input type="submit" value="Search" id="search-button">
+            <label for="search-bar" class="filter-label">Search</label>
+            <input type="text" class="filter" name="search" id="search-bar" placeholder="Search birds">
+            <label for="conservation-filter" class="filter-label">Filter by Conservation</label>
+            <select name="conservation-filter" class="filter" id="conservation-filter">
+                <option value="all">All</option>
+                <option value="not-threatened">Not Threatened</option>
+                <option value="naturally-uncommon">Naturally Uncommon</option>
+                <option value="relicit">Relicit</option>
+                <option value="recovering">Recovering</option>
+                <option value="declining">Declining</option>
+                <option value="nationally-increasing">Nationally Increasing</option>
+                <option value="nationally-vulnerable">Nationally Vulnerable</option>
+                <option value="nationally-endangered">Nationally Endagered</option>
+                <option value="nationally-critical">Nationally Critical</option>
+                <option value="data-deficient">Data Deficient</option>
+              </select>
+            
+            <label for="other-filter" class="filter-label">Filter by</label>
+            <select name="other-filter" class="filter" id="other-filter">
+                <option value="light-heavy">Lightest to Heaviest</option>
+                <option value="heavy-light">Heaviest to Lightest</option>
+                <option value="smallest-tallest">Smallest to Tallest</option>
+                <option value="tallest-smallest">Tallest to Smallest</option>
+            </select>
+            <button type="submit" id="filter-button" class="filter-button">FILTER RESULTS</button>
         </form>
 
     </nav>
@@ -34,7 +57,7 @@
         <section>
             <h2 id="image-section">Hello</h2>
             <p>
-                Main content images and whatnot
+                Main content images and whatnot <!-- This is where the images will go, each image can append a p element, this p element is a placeholder -->
             </p>
         </section>
     </main>

@@ -33,7 +33,7 @@ function dataReadyCallback(data) {
 
 // callback for when a fetch error occurs
 function fetchErrorCallback(error) {
-    alert("An error occured when fetching the bird data. Please try again later.");
+    //alert("An error occured when fetching the bird data. Please try again later.");
     console.log(error)
 }
 

@@ -15,7 +15,8 @@
 
 #header-text {
     position: absolute;
-    bottom: 1px;
+    margin-top: 18px;
+    vertical-align: middle;
 }
 
 .nav {
@@ -54,6 +55,8 @@
     height: 40px;
     margin-right: 10px;
     margin-left: 10px;
+    margin-bottom: 8px;
+    vertical-align: middle;
 }
 
 .document-body {
@@ -67,24 +70,53 @@
     min-height: 100vh;
 }
 
-#search-bar {
+#filter-button {
     width: 75%;
-    height: 30px;
-    border-radius: 10px; /* rounded corners */
+    border-radius: 10px; 
+    margin-top: 15px;
+    margin-left: 10px;
     justify-content: center;
+    font-weight: bold;
+    text-align: center;
     padding: 10px;
-    font-size: 16px;
-    border: 1px solid black;
-
+    margin-left: 2px;
+    font-size: 13px;
+    font-family: "Proxima Nova", sans-serif;
+    border: 1.8px solid black;
 }
 
-#search-button {
-    width: 25%;
-    height: 30px;
-    border-radius: 10px; /* rounded corners */
+.filter {
+    display: block;
     justify-content: center;
     padding: 10px;
-    font-size: 16px;
-    border: 1px solid black;
-
+    border-radius: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
+    width: 200px;
+    border: 1.8px solid black;
+    width: 75%;
 }
+
+#search-bar {
+    width: 240px;
+}
+
+.filter-label {
+    display: flex;
+    font-size: 12px;
+    padding: 10px;
+    font-weight: bold;
+    font-family: "Proxima Nova", sans-serif;
+}
+
+.sub-title {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "Proxima Nova", sans-serif;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    text-align: center;
+}
+

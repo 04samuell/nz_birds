@@ -55,11 +55,7 @@ function displayData(data) {
     //sort by other filter...
 
     for(let bird of birdlist) {
-        let h2 = document.querySelector("#image-section");
-        let img = document.createElement("img");
-        img.src = bird.photo.source;
-        img.alt = bird.name;
-        h2.appendChild(img);
+        createAndDisplayBird(bird);
     }
 }
 
@@ -71,6 +67,103 @@ function getValidNames(bird) {
     //add other names later
 }
 
+function createAndDisplayBird(bird) {
+    console.log("creating bird");
+    let main = document.getElementById("image-content");
 
-//setUp();
+    let section = document.createElement("section"); 
+    section.className = "grid-container";
+    //main.appendChild(section);
+
+    let article = document.createElement("article");
+    article.className = "rectangular-element";
+    //section.appendChild(article);
+
+    let div1 = document.createElement("div");
+    div1.className = "image-container";
+    //article.appendChild(div1);
+
+    let img = document.createElement("img");
+    img.src = bird.photo.source;
+    img.alt = bird.name;
+    //div1.appendChild(img);
+
+    let span1 = document.createElement("span");
+    span1.className = "bird-name";
+    span1.textContent = bird.common_name;
+    //article.appendChild(span1);
+
+    let span2 = document.createElement("span");
+    span2.className = "bird-circle";
+    //span2.style = "--circle-color: " + getConserVationColor(bird.conservation_status) + ";";
+    //article.appendChild(span2);
+
+    let div2 = document.createElement("div");
+    div2.className = "text-container";
+    //article.appendChild(div2);
+    
+    let span3 = document.createElement("span");
+    span3.className = "data-label";
+    span3.textContent = "Image Credit: ";
+    //article.appendChild(span3);
+
+    let span4 = document.createElement("span");
+    span4.className = "data-value";
+    span4.textContent = bird.photo.credit;
+    //article.appendChild(span4);
+    console.log(img);
+    console.log(span1);
+    console.log(span2);
+    console.log(span3);
+    console.log(span4);
+    console.log(div1);
+    console.log(div2);
+    console.log(article);
+    console.log(section);
+
+
+    div1.appendChild(img);
+    article.appendChild(div1);
+    article.appendChild(span1);
+    article.appendChild(span2);
+    div2.appendChild(span3);
+    div2.appendChild(span4);
+    article.appendChild(div2);
+    section.appendChild(article);
+    main.appendChild(section);
+}
+
+function getConserVationColor(status) {
+    switch(status) {
+        case "At Risk":
+            return "red";
+        case "Recovering":
+            return "orange";
+        case "Not Threatened":
+            return "green";
+        default:
+            return "grey";
+    }
+}
+
+
+setUp();
+
+/*
+
+  <section class="grid-container">
+            <article class="rectangular-element">
+                <div class="image-container">
+                    <img src="data/images/bellbird-4.jpg" alt="Image Description">
+                </div>
+                <span class="bird-name">Bird name</span>
+                <span class="bird-circle" style="--circle-color: red;"></span>
+                <div class="text-container">
+                    <span class="data-label">Image Credit:</span>
+                    <span class="data-value">Photographer's Name</span>  
+                </div>
+            </article>
+        </section
+
+*/
 

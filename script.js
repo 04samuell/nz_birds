@@ -103,7 +103,7 @@ function createAndDisplayBird(bird) {
 
     let englishNameValue = document.createElement("span");
     englishNameValue.className = "data-value";
-    englishNameValue.textContent = bird.common_name + "\n";
+    englishNameValue.textContent = bird.common_name;
 
     let maoriNameLabel = document.createElement("span");
     maoriNameLabel.className = "data-label";
@@ -111,7 +111,15 @@ function createAndDisplayBird(bird) {
 
     let maoriNameValue = document.createElement("span");
     maoriNameValue.className = "data-value";
-    maoriNameValue.textContent = bird.original_name + "\n";
+    maoriNameValue.textContent = bird.original_name;
+
+    let conservationStatusName = document.createElement("span");
+    conservationStatusName.className = "data-label";
+    conservationStatusName.textContent = "Conservation Status: ";
+
+    let conservationStatusValue = document.createElement("span");
+    conservationStatusValue.className = "data-value";
+    conservationStatusValue.textContent = bird.status;
     
     let imageCreditLabel = document.createElement("span");
     imageCreditLabel.className = "data-label";
@@ -119,22 +127,24 @@ function createAndDisplayBird(bird) {
 
     let imageCreditValue = document.createElement("span");
     imageCreditValue.className = "data-value";
-    imageCreditValue.textContent = bird.photo.credit + "\n";
-
-    let sep = document.createElement("p");
+    imageCreditValue.textContent = bird.photo.credit;
 
     imageSection.appendChild(img);
     article.appendChild(imageSection);
     textSection.appendChild(englishNameLabel);
     textSection.appendChild(englishNameValue);
-    textSection.appendChild(sep);
+    textSection.appendChild(document.createElement("p"));
     textSection.appendChild(maoriNameLabel);
     textSection.appendChild(maoriNameValue);
-    textSection.appendChild(sep);
+    textSection.appendChild(document.createElement("p"));
+    textSection.appendChild(conservationStatusName);
+    textSection.appendChild(conservationStatusValue);
+    textSection.appendChild(document.createElement("p"));
+    //weight and height
     textSection.appendChild(imageCreditLabel);
     textSection.appendChild(imageCreditValue);
-    textSection.appendChild(sep);
-    
+    textSection.appendChild(document.createElement("p"));
+
     article.appendChild(textSection);
     section.appendChild(article);
     main.appendChild(section);

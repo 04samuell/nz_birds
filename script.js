@@ -103,7 +103,7 @@ function createAndDisplayBird(bird) {
 
     let englishNameValue = document.createElement("span");
     englishNameValue.className = "data-value";
-    englishNameValue.textContent = bird.common_name;
+    englishNameValue.textContent = bird.common_name + "\n";
 
     let maoriNameLabel = document.createElement("span");
     maoriNameLabel.className = "data-label";
@@ -111,7 +111,7 @@ function createAndDisplayBird(bird) {
 
     let maoriNameValue = document.createElement("span");
     maoriNameValue.className = "data-value";
-    maoriNameValue.textContent = bird.original_name;
+    maoriNameValue.textContent = bird.original_name + "\n";
     
     let imageCreditLabel = document.createElement("span");
     imageCreditLabel.className = "data-label";
@@ -119,7 +119,7 @@ function createAndDisplayBird(bird) {
 
     let imageCreditValue = document.createElement("span");
     imageCreditValue.className = "data-value";
-    imageCreditValue.textContent = bird.photo.credit;
+    imageCreditValue.textContent = bird.photo.credit + "\n";
 
     let sep = document.createElement("p");
 

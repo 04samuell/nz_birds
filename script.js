@@ -52,8 +52,14 @@ function displayData(data) {
         }
     }   
 
+    //show bird counter
+    let counter = document.getElementById("bird-counter");
+    counter.textContent = "Showing " + birdlist.length + " of 68 birds.";
+    counter.classList.add("filter-label");
+
     //sort by other filter...
 
+    //display birds
     for(let bird of birdlist) {
         createAndDisplayBird(bird);
     }
@@ -76,8 +82,8 @@ function createAndDisplayBird(bird) {
     let article = document.createElement("article");
     article.className = "rectangular-element";
 
-    let div1 = document.createElement("div");
-    div1.className = "image-container";
+    let imageSection = document.createElement("div");
+    imageSection.className = "image-container";
 
     let img = document.createElement("img");
     img.src = bird.photo.source;
@@ -88,16 +94,24 @@ function createAndDisplayBird(bird) {
     // span2.className = "bird-circle";
     // span2.style = "--circle-color: " + getConserVationColor(bird.conservation_status) + ";";
 
-    let div2 = document.createElement("div");
-    div2.className = "text-container";
+    let textSection = document.createElement("div");
+    textSection.className = "text-container";
 
-    let nameLabel = document.createElement("span");
-    nameLabel.className = "data-label";
-    nameLabel.textContent = "Bird name: ";
+    let englishNameLabel = document.createElement("span");
+    englishNameLabel.className = "data-label";
+    englishNameLabel.textContent = "Name: ";
 
-    let nameValue = document.createElement("span");
-    nameValue.className = "data-value";
-    nameValue.textContent = bird.common_name;
+    let englishNameValue = document.createElement("span");
+    englishNameValue.className = "data-value";
+    englishNameValue.textContent = bird.common_name;
+
+    let maoriNameLabel = document.createElement("span");
+    maoriNameLabel.className = "data-label";
+    maoriNameLabel.textContent = "Maori name: ";
+
+    let maoriNameValue = document.createElement("span");
+    maoriNameValue.className = "data-value";
+    maoriNameValue.textContent = bird.original_name;
     
     let imageCreditLabel = document.createElement("span");
     imageCreditLabel.className = "data-label";
@@ -109,14 +123,19 @@ function createAndDisplayBird(bird) {
 
     let sep = document.createElement("p");
 
-    div1.appendChild(img);
-    article.appendChild(div1);
-    div2.appendChild(nameLabel);
-    div2.appendChild(nameValue);
-    div2.appendChild(sep);
-    div2.appendChild(imageCreditLabel);
-    div2.appendChild(imageCreditValue);
-    article.appendChild(div2);
+    imageSection.appendChild(img);
+    article.appendChild(imageSection);
+    textSection.appendChild(englishNameLabel);
+    textSection.appendChild(englishNameValue);
+    textSection.appendChild(sep);
+    textSection.appendChild(maoriNameLabel);
+    textSection.appendChild(maoriNameValue);
+    textSection.appendChild(sep);
+    textSection.appendChild(imageCreditLabel);
+    textSection.appendChild(imageCreditValue);
+    textSection.appendChild(sep);
+    
+    article.appendChild(textSection);
     section.appendChild(article);
     main.appendChild(section);
 }

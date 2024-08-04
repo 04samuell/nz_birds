@@ -68,66 +68,54 @@ function getValidNames(bird) {
 }
 
 function createAndDisplayBird(bird) {
-    console.log("creating bird");
     let main = document.getElementById("image-content");
 
     let section = document.createElement("section"); 
     section.className = "grid-container";
-    //main.appendChild(section);
 
     let article = document.createElement("article");
     article.className = "rectangular-element";
-    //section.appendChild(article);
 
     let div1 = document.createElement("div");
     div1.className = "image-container";
-    //article.appendChild(div1);
 
     let img = document.createElement("img");
     img.src = bird.photo.source;
     img.alt = bird.name;
-    //div1.appendChild(img);
 
-    let span1 = document.createElement("span");
-    span1.className = "bird-name";
-    span1.textContent = bird.common_name;
-    //article.appendChild(span1);
 
-    let span2 = document.createElement("span");
-    span2.className = "bird-circle";
-    //span2.style = "--circle-color: " + getConserVationColor(bird.conservation_status) + ";";
-    //article.appendChild(span2);
+    // let span2 = document.createElement("span");
+    // span2.className = "bird-circle";
+    // span2.style = "--circle-color: " + getConserVationColor(bird.conservation_status) + ";";
 
     let div2 = document.createElement("div");
     div2.className = "text-container";
-    //article.appendChild(div2);
+
+    let nameLabel = document.createElement("span");
+    nameLabel.className = "data-label";
+    nameLabel.textContent = "Bird name: ";
+
+    let nameValue = document.createElement("span");
+    nameValue.className = "data-value";
+    nameValue.textContent = bird.common_name;
     
-    let span3 = document.createElement("span");
-    span3.className = "data-label";
-    span3.textContent = "Image Credit: ";
-    //article.appendChild(span3);
+    let imageCreditLabel = document.createElement("span");
+    imageCreditLabel.className = "data-label";
+    imageCreditLabel.textContent = "Image Credit: ";
 
-    let span4 = document.createElement("span");
-    span4.className = "data-value";
-    span4.textContent = bird.photo.credit;
-    //article.appendChild(span4);
-    console.log(img);
-    console.log(span1);
-    console.log(span2);
-    console.log(span3);
-    console.log(span4);
-    console.log(div1);
-    console.log(div2);
-    console.log(article);
-    console.log(section);
+    let imageCreditValue = document.createElement("span");
+    imageCreditValue.className = "data-value";
+    imageCreditValue.textContent = bird.photo.credit;
 
+    let sep = document.createElement("p");
 
     div1.appendChild(img);
     article.appendChild(div1);
-    article.appendChild(span1);
-    article.appendChild(span2);
-    div2.appendChild(span3);
-    div2.appendChild(span4);
+    div2.appendChild(nameLabel);
+    div2.appendChild(nameValue);
+    div2.appendChild(sep);
+    div2.appendChild(imageCreditLabel);
+    div2.appendChild(imageCreditValue);
     article.appendChild(div2);
     section.appendChild(article);
     main.appendChild(section);

@@ -33,6 +33,11 @@
 
     grid-row: span 1;
     grid-column: span 3;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 16px;
 }
 
 .footer {
@@ -138,8 +143,71 @@
 .text-circle-container {
     display: flex;
     align-items: center;
-    margin-left: 10px;
-    /* space between elements */
-    
+    margin-left: 10px;   
 }
 
+.grid-container {
+    grid-column: span 1;
+    display: grid;
+}
+
+.rectangular-element {
+    grid-column: span 3;    
+    padding: 10px;
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.image-container {
+    flex: 1;
+    position: relative;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.text-container {
+    padding: 10px;
+    background-color: #f8f8f8;
+    text-align: center;
+    position: relative;
+}
+
+.data-label {
+    font-weight: bold;
+    font-size: 14px;
+    font-family: "Proxima Nova", sans-serif;
+}
+
+.data-value {
+    font-size: 14px;
+    font-family: "Proxima Nova", sans-serif;
+}
+
+.bird-circle {   
+    position: absolute; 
+    top: 49%; 
+    left: 47%; 
+    transform: translate(-50%, -50%); 
+    width: 32px; 
+    height: 32px;
+    background-color: var(--circle-color);
+    border-radius: 50%;
+    z-index: 1;
+    border: 3px solid white; 
+}
+
+.bird-name {
+    position: absolute;
+    top: 22%;
+    left: 31%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-family: "Proxima Nova", sans-serif;
+    z-index: 2;
+    color: white;
+    font-weight: bold;
+}

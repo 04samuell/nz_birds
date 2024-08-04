@@ -72,5 +72,5 @@ function getValidNames(bird) {
 }
 
 
-setUp();
+//setUp();
 

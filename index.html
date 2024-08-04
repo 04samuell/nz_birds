@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css"></link>
+    <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
     <title>NZ Birds</title>
 </head>
@@ -104,12 +104,20 @@
     </nav>
 
     <main class="main-content">
-        <section>
-            <h2 id="image-section">Hello</h2>
-            <p>
-                Main content images and whatnot <!-- This is where the images will go, each image can append a p element, this p element is a placeholder -->
-            </p>
+        <section class="grid-container">
+            <article class="rectangular-element">
+                <div class="image-container">
+                    <img src="data/images/bellbird-4.jpg" alt="Image Description">
+                </div>
+                <span class="bird-name">Bird name</span>
+                <span class="bird-circle" style="--circle-color: red;"></span>
+                <div class="text-container">
+                    <span class="data-label">Image Credit:</span>
+                    <span class="data-value">Photographer's Name</span>  
+                </div>
+            </article>
         </section>
+
     </main>
 
     <footer class="footer">

@@ -36,10 +36,11 @@ function fetchErrorCallback(error) {
     console.log(error)
 }
 
-function displayData(data) { //data param
+function displayData(data) {
 
-    let searchResult = document.querySelector("#search-result");
-    if (searchResult == null) {
+    let searchElement = document.getElementById("search-bar");
+    let searchResult = searchElement.value;
+    if (searchResult === null) {
         searchResult = "";
     }
     let conservationStatus = document.querySelector("#conservation-filter").value.trim().toLowerCase();
@@ -48,7 +49,8 @@ function displayData(data) { //data param
     let birdlist = [];
     for (let bird of data) {
         let validNames = getValidNames(bird);
-        if (searchResult === "") { // check if the search result is in the list of names validNames.includes(searchResult)
+        console.log(searchResult)
+        if (searchResult === "" || containsName(validNames, searchResult)) { // check if the search result is in the list of names validNames
             let status = bird.status.replaceAll(" ", "").toLowerCase();
             if (conservationStatus === "all" || conservationStatus.localeCompare(status) == 0) { // check if the conservation status matched the birds conservation status || conservationStatus.includes(conservationStatus)
                 birdlist.push(bird);
@@ -70,22 +72,41 @@ function displayData(data) { //data param
     for (let bird of birdlist) {
         createAndDisplayBird(bird);
     }
+
+    if(birdlist.length == 0){
+        displayNoBirdsFound();
+    }
+}
+
+function displayNoBirdsFound(){
+    let main = document.getElementById("image-content");
+    let h2 = document.createElement("h2");
+    h2.textContent = "No results";
+    h2.classList.add("no-birds-found");
+    main.appendChild(document.createElement("h2"));
+    main.appendChild(h2);
+}
+
+function containsName(names, searchResult) {
+    for (let name of names) {
+        if (name.includes(searchResult)) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 function getValidNames(bird) {
     //noramlize all these?
     validNames = [];
-    validNames.push(bird.common_name.toLowerCase());
-    validNames.push(bird.scientific_name.toLowerCase());
-    validNames.push(bird.common_name.toLowerCase());
+    validNames.push(bird.common_name.toLowerCase().normalize("NFC"));
+    validNames.push(bird.scientific_name.toLowerCase().normalize("NFC"));
+    validNames.push(bird.original_name.toLowerCase().normalize("NFC"));
     
     for(let name of bird.other_name){
-        validNames.push(name.toLowerCase());
+        validNames.push(name.toLowerCase().normalize("NFC"));
     }
-
-    // for(let name of validNames) {
-    //     name = name.normalize(); // wrong
-    // }
 
     return validNames;
 }

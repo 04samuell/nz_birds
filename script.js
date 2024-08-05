@@ -89,11 +89,6 @@ function createAndDisplayBird(bird) {
     img.src = bird.photo.source;
     img.alt = bird.name;
 
-
-    // let span2 = document.createElement("span");
-    // span2.className = "bird-circle";
-    // span2.style = "--circle-color: " + getConserVationColor(bird.conservation_status) + ";";
-
     let textSection = document.createElement("div");
     textSection.className = "text-container";
 
@@ -117,11 +112,26 @@ function createAndDisplayBird(bird) {
     conservationStatusName.className = "data-label";
     conservationStatusName.textContent = "Conservation Status: ";
 
-    let conservationStatusValue = document.createElement("span");
-    conservationStatusValue.className = "data-value";
-    conservationStatusValue.textContent = bird.status;
+    let conservationColor = getStausColor(bird.status.toLowerCase());
+    let statusCircle = document.createElement("span");
+    statusCircle.className = "circle2";
+    statusCircle.style = "--circle-color: " + conservationColor + ";";
 
-    let getConserVationColor = getStausColor(bird.status.toLowerCase());
+    let weightLabel = document.createElement("span");
+    weightLabel.className = "data-label";
+    weightLabel.textContent = "Weight: ";
+
+    let weightValue = document.createElement("span");
+    weightValue.className = "data-value";
+    weightValue.textContent = bird.weight;
+
+    let lengthLabel = document.createElement("span");
+    lengthLabel.className = "data-label";
+    lengthLabel.textContent = "Length: ";
+
+    let lengthValue = document.createElement("span");
+    lengthValue.className = "data-value";
+    lengthValue.textContent = bird.length;
 
     let imageCreditLabel = document.createElement("span");
     imageCreditLabel.className = "data-label";
@@ -139,10 +149,15 @@ function createAndDisplayBird(bird) {
     textSection.appendChild(maoriNameLabel);
     textSection.appendChild(maoriNameValue);
     textSection.appendChild(document.createElement("p"));
-    textSection.appendChild(conservationStatusName);
-    textSection.appendChild(conservationStatusValue);
+    textSection.appendChild(weightLabel);
+    textSection.appendChild(weightValue);
     textSection.appendChild(document.createElement("p"));
-    //weight and height
+    textSection.appendChild(lengthLabel);
+    textSection.appendChild(lengthValue);
+    textSection.appendChild(document.createElement("p"));
+    textSection.appendChild(conservationStatusName);
+    textSection.appendChild(statusCircle);
+    textSection.appendChild(document.createElement("p"));
     textSection.appendChild(imageCreditLabel);
     textSection.appendChild(imageCreditValue);
     textSection.appendChild(document.createElement("p"));

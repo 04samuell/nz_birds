@@ -2,7 +2,10 @@ const URL = "nzbird.json" // Data file
 
 function setUp() {
     let button = document.getElementById("filter-button");
-    button.addEventListener("click", displayData);
+    button.addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent the form from submitting
+        retrieveAndDisplayData();
+    });
 
     retrieveAndDisplayData();
 }
@@ -35,20 +38,19 @@ function fetchErrorCallback(error) {
 
 function displayData(data) { //data param
 
-    console.log(data.length);
-
     let searchResult = document.querySelector("#search-result");
     if (searchResult == null) {
         searchResult = "";
     }
-    let conservationStatus = document.querySelector("#conservation-filter").value.toLowerCase();
-    let otherFilter = document.querySelector("#other-filter").value.toLowerCase();
+    let conservationStatus = document.querySelector("#conservation-filter").value.trim().toLowerCase();
+    let otherFilter = document.querySelector("#other-filter").value.trim().toLowerCase();
 
     let birdlist = [];
     for (let bird of data) {
         let validNames = getValidNames(bird);
-        if (true) { // check if the search result is in the list of names validNames.includes(searchResult)
-            if (conservationStatus === "all" || conservationStatus === bird.status.toLowerCase()) { // check if the conservation status matched the birds conservation status || conservationStatus.includes(conservationStatus)
+        if (searchResult === "") { // check if the search result is in the list of names validNames.includes(searchResult)
+            let status = bird.status.replaceAll(" ", "").toLowerCase();
+            if (conservationStatus === "all" || conservationStatus.localeCompare(status) == 0) { // check if the conservation status matched the birds conservation status || conservationStatus.includes(conservationStatus)
                 birdlist.push(bird);
             }
         }
@@ -61,6 +63,9 @@ function displayData(data) { //data param
 
     //sort by other filter...
 
+    let main = document.getElementById("image-content");
+    main.innerHTML = "";
+
     //display birds
     for (let bird of birdlist) {
         createAndDisplayBird(bird);
@@ -68,6 +73,7 @@ function displayData(data) { //data param
 }
 
 function getValidNames(bird) {
+    //noramlize all these?
     validNames = [];
     validNames.push(bird.common_name.toLowerCase());
     validNames.push(bird.scientific_name.toLowerCase());
@@ -76,6 +82,10 @@ function getValidNames(bird) {
     for(let name of bird.other_name){
         validNames.push(name.toLowerCase());
     }
+
+    // for(let name of validNames) {
+    //     name = name.normalize(); // wrong
+    // }
 
     return validNames;
 }

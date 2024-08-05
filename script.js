@@ -2,7 +2,7 @@ const URL = "nzbird.json" // Data file
 
 function setUp() {
     let button = document.getElementById("filter-button");
-    button.addEventListener("click", retrieveAndDisplayData);
+    button.addEventListener("click", displayData);
 
     retrieveAndDisplayData();
 }
@@ -33,7 +33,9 @@ function fetchErrorCallback(error) {
     console.log(error)
 }
 
-function displayData(data) {
+function displayData(data) { //data param
+
+    console.log(data.length);
 
     let searchResult = document.querySelector("#search-result");
     if (searchResult == null) {
@@ -46,7 +48,7 @@ function displayData(data) {
     for (let bird of data) {
         let validNames = getValidNames(bird);
         if (true) { // check if the search result is in the list of names validNames.includes(searchResult)
-            if (conservationStatus == "all") { // check if the conservation status matched the birds conservation status || conservationStatus.includes(conservationStatus)
+            if (conservationStatus === "all" || conservationStatus === bird.status.toLowerCase()) { // check if the conservation status matched the birds conservation status || conservationStatus.includes(conservationStatus)
                 birdlist.push(bird);
             }
         }
@@ -70,7 +72,12 @@ function getValidNames(bird) {
     validNames.push(bird.common_name.toLowerCase());
     validNames.push(bird.scientific_name.toLowerCase());
     validNames.push(bird.common_name.toLowerCase());
-    //add other names later
+    
+    for(let name of bird.other_name){
+        validNames.push(name.toLowerCase());
+    }
+
+    return validNames;
 }
 
 function createAndDisplayBird(bird) {
@@ -198,22 +205,3 @@ function getStausColor(status) {
 
 
 setUp();
-
-/*
-
-  <section class="grid-container">
-            <article class="rectangular-element">
-                <div class="image-container">
-                    <img src="data/images/bellbird-4.jpg" alt="Image Description">
-                </div>
-                <span class="bird-name">Bird name</span>
-                <span class="bird-circle" style="--circle-color: red;"></span>
-                <div class="text-container">
-                    <span class="data-label">Image Credit:</span>
-                    <span class="data-value">Photographer's Name</span>  
-                </div>
-            </article>
-        </section
-
-*/
-

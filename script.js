@@ -121,7 +121,7 @@ function createAndDisplayBird(bird) {
     conservationStatusValue.className = "data-value";
     conservationStatusValue.textContent = bird.status;
 
-    let getConserVationColor = getStausColor(bird.status);
+    let getConserVationColor = getStausColor(bird.status.toLowerCase());
 
     let imageCreditLabel = document.createElement("span");
     imageCreditLabel.className = "data-label";
@@ -162,20 +162,20 @@ function getStausColor(status) {
             return "#99cb68";
         case "recovering":
             return "#fecc33";
-        case "":
-            return "#";
-        case "":
-            return "#";
-        case "":
-            return "#";
-        case "":
-            return "#";
-        case "":
-            return "#";
-        case "":
-            return "#";
-        case "":
-            return "#";
+        case "declining":
+            return "#fe9a01";
+        case "nationally increasing":
+            return "#c26967";
+        case "nationally vulnerable":
+            return "#9b0000";
+        case "nationally endagered":
+            return "#660032";
+        case "nationally critical":
+            return "#320033";
+        case "extinct":
+            return "black";
+        case "data deficient":
+            return "black";
         default:
             return "grey";
     }

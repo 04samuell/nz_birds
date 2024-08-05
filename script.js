@@ -15,7 +15,7 @@ function retrieveAndDisplayData() {
 }
 
 function responseCallback(response) {
-    if(response.status != 200) {
+    if (response.status != 200) {
         return; // something has gone wrong
     } else {
         return response.text(); // all good
@@ -36,21 +36,21 @@ function fetchErrorCallback(error) {
 function displayData(data) {
 
     let searchResult = document.querySelector("#search-result");
-    if(searchResult == null) {
+    if (searchResult == null) {
         searchResult = "";
     }
     let conservationStatus = document.querySelector("#conservation-filter").value.toLowerCase();
     let otherFilter = document.querySelector("#other-filter").value.toLowerCase();
-    
+
     let birdlist = [];
-    for(let bird of data) {
+    for (let bird of data) {
         let validNames = getValidNames(bird);
-        if(true) { // check if the search result is in the list of names validNames.includes(searchResult)
-            if(conservationStatus == "all") { // check if the conservation status matched the birds conservation status || conservationStatus.includes(conservationStatus)
+        if (true) { // check if the search result is in the list of names validNames.includes(searchResult)
+            if (conservationStatus == "all") { // check if the conservation status matched the birds conservation status || conservationStatus.includes(conservationStatus)
                 birdlist.push(bird);
             }
         }
-    }   
+    }
 
     //show bird counter
     let counter = document.getElementById("bird-counter");
@@ -60,7 +60,7 @@ function displayData(data) {
     //sort by other filter...
 
     //display birds
-    for(let bird of birdlist) {
+    for (let bird of birdlist) {
         createAndDisplayBird(bird);
     }
 }
@@ -76,7 +76,7 @@ function getValidNames(bird) {
 function createAndDisplayBird(bird) {
     let main = document.getElementById("image-content");
 
-    let section = document.createElement("section"); 
+    let section = document.createElement("section");
     section.className = "grid-container";
 
     let article = document.createElement("article");
@@ -120,7 +120,9 @@ function createAndDisplayBird(bird) {
     let conservationStatusValue = document.createElement("span");
     conservationStatusValue.className = "data-value";
     conservationStatusValue.textContent = bird.status;
-    
+
+    let getConserVationColor = getStausColor(bird.status);
+
     let imageCreditLabel = document.createElement("span");
     imageCreditLabel.className = "data-label";
     imageCreditLabel.textContent = "Image Credit: ";
@@ -150,14 +152,30 @@ function createAndDisplayBird(bird) {
     main.appendChild(section);
 }
 
-function getConserVationColor(status) {
-    switch(status) {
-        case "At Risk":
-            return "red";
-        case "Recovering":
-            return "orange";
-        case "Not Threatened":
-            return "green";
+function getStausColor(status) {
+    switch (status) {
+        case "not threatened":
+            return "#02a028";
+        case "naturally uncommon":
+            return "#649a31";
+        case "relicit":
+            return "#99cb68";
+        case "recovering":
+            return "#fecc33";
+        case "":
+            return "#";
+        case "":
+            return "#";
+        case "":
+            return "#";
+        case "":
+            return "#";
+        case "":
+            return "#";
+        case "":
+            return "#";
+        case "":
+            return "#";
         default:
             return "grey";
     }

@@ -2,7 +2,7 @@ const URL = "nzbird.json" // Data file
 
 function setUp() {
     let button = document.getElementById("filter-button");
-    button.addEventListener("click", function(event) {
+    button.addEventListener("click", function (event) {
         event.preventDefault(); // Prevent the form from submitting
         retrieveAndDisplayData();
     });
@@ -63,6 +63,11 @@ function displayData(data) {
     counter.classList.add("filter-label");
 
     //sort by other filter...
+    for (let bird of birdlist) {
+        handleBirdData(bird);
+        console.log(bird.length + " " + bird.lengthRaw);
+        //console.log(bird.weight + " " + bird.weightRaw);
+    }
 
     let main = document.getElementById("image-content");
     main.innerHTML = "";
@@ -72,12 +77,12 @@ function displayData(data) {
         createAndDisplayBird(bird);
     }
 
-    if(birdlist.length == 0){
+    if (birdlist.length == 0) {
         displayNoBirdsFound();
     }
 }
 
-function displayNoBirdsFound(){
+function displayNoBirdsFound() {
     let main = document.getElementById("image-content");
     let h2 = document.createElement("h2");
     h2.textContent = "No results";
@@ -101,8 +106,8 @@ function getValidNames(bird) {
     validNames.push(normalizeString(bird.common_name.toLowerCase()));
     validNames.push(normalizeString(bird.scientific_name.toLowerCase()));
     validNames.push(normalizeString(bird.original_name.toLowerCase()));
-    
-    for(let name of bird.other_name){
+
+    for (let name of bird.other_name) {
         validNames.push(normalizeString(name.toLowerCase()));
     }
 
@@ -234,7 +239,91 @@ function getStausColor(status) {
 
 function normalizeString(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  }
+}
+
+function handleBirdData(bird) {
+    addLengthProperty(bird);
+    addWeightProperty(bird);
+}
+
+function addLengthProperty(bird) {
+    let birdString = bird.length;
+    let length;
+    let dash = birdString.includes("-");
+    if (birdString.includes("male")) {
+        let maleAndFemaleData = birdString.split(",");
+        if (dash) {
+            let dashedArray1 = maleAndFemaleData[0].split("-");
+            let dashedArray2 = maleAndFemaleData[1].split("-");
+            let numbers1 = [extractNumeric(dashedArray1[0]), extractNumeric(dashedArray1[1])];
+            let numbers2 = [extractNumeric(dashedArray2[0]), extractNumeric(dashedArray2[1])];
+            length = average(average(numbers1[0], numbers1[1]), average(numbers2[0], numbers2[1]));
+        } else {
+            let numbers = [extractNumeric(maleAndFemaleData[0]), extractNumeric(maleAndFemaleData[1])];
+            length = average(numbers[0], numbers[1]);
+        }
+    } else {
+        if(dash) {
+            let dashedArray = birdString.split("-");
+            let numbers = [extractNumeric(dashedArray[0]), extractNumeric(dashedArray[1])];
+            length = average(numbers[0], numbers[1]);
+        } else {
+            length = extractNumeric(birdString);
+        }
+    }
+
+    bird["lengthRaw"] = length;
+}
+
+function addWeightProperty(bird) {
+    let birdString = bird.weight;
+    let weight;
+    let kg = birdString.includes("kg");
+    let dash = birdString.includes("-");
+    let comma = birdString.includes(",");
+    let dualData = birdString.includes("male") || birdString.includes("northern");
+    if (dualData) {
+        let dualDataArray;
+        if (comma) {
+            dualDataArray = birdString.split(",");
+        } else {
+            dualDataArray = birdString.split(";");
+        }
+        if (dash) {
+            let dashedArray1 = dualDataArray[0].split("-");
+            let dashedArray2 = dualDataArray[1].split("-");
+            let numbers1 = [extractNumeric(dashedArray1[0]), extractNumeric(dashedArray1[1])];
+            let numbers2 = [extractNumeric(dashedArray2[0]), extractNumeric(dashedArray2[1])];
+            weight = average(average(numbers1[0], numbers1[1]), average(numbers2[0], numbers2[1]));
+        } else {
+            let numbers = [extractNumeric(dualDataArray[0]), extractNumeric(dualDataArray[1])];
+            weight = average(numbers[0], numbers[1]);
+        }
+    } else if (dash) {
+        let dashedArray = birdString.split("-");
+        let numbers = [extractNumeric(dashedArray[0]), extractNumeric(dashedArray[1])];
+        weight = average(numbers[0], numbers[1]);
+    } else {
+        weight = extractNumeric(birdString);
+    }
+
+    if (kg) {
+        weight = weight * 1000;
+    }
+
+    bird["weightRaw"] = weight;
+}
+
+// Given a string, extract the numeric value from it and parse as a number.
+function extractNumeric(str) {
+    const numericString = str.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'); // replaces all non-numeric characters apart from decimal points
+    return numericString ? Number(numericString) : NaN;
+}
+
+// Given two numbers, return their average.
+function average(a, b) {
+    return (a + b) / 2;
+}
 
 
 setUp();

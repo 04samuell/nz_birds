@@ -64,14 +64,16 @@ function displayData(data) {
 
     //sort by other filter...
     for (let bird of birdlist) {
-        handleBirdData(bird);        
+        handleBirdData(bird);
+        //console.log(bird.length + " " + bird.minLength + " " + bird.maxLength+ " " + bird.lengthAv);
+        console.log(bird.weight + " " + bird.minWeight + " " + bird.maxWeight + " " + bird.weightAv);
     }
 
-    if(otherFilter.localeCompare("light-heavy") == 0) {
+    if (otherFilter.localeCompare("light-heavy") == 0) {
         birdlist = sortByWeight(birdlist);
-    } else if(otherFilter.localeCompare("heavy-light") == 0) {
+    } else if (otherFilter.localeCompare("heavy-light") == 0) {
         birdlist = sortByWeight(birdlist).reverse();
-    } else if(otherFilter.localeCompare("short-long") == 0) {
+    } else if (otherFilter.localeCompare("short-long") == 0) {
         birdlist = sortByLength(birdlist);
     } else {
         birdlist = sortByLength(birdlist).reverse();
@@ -258,6 +260,8 @@ function addLengthProperty(bird) {
     let birdString = bird.length;
     let length;
     let dash = birdString.includes("-");
+    let minLength;
+    let maxLength;
     if (birdString.includes("male")) {
         let maleAndFemaleData = birdString.split(",");
         if (dash) {
@@ -265,22 +269,32 @@ function addLengthProperty(bird) {
             let dashedArray2 = maleAndFemaleData[1].split("-");
             let numbers1 = [extractNumeric(dashedArray1[0]), extractNumeric(dashedArray1[1])];
             let numbers2 = [extractNumeric(dashedArray2[0]), extractNumeric(dashedArray2[1])];
+            minLength = average(numbers1[0], numbers1[1], numbers2[0], numbers2[1]);
+            maxLength = average(numbers1[0], numbers1[1], numbers2[0], numbers2[1]);
             length = average(average(numbers1[0], numbers1[1]), average(numbers2[0], numbers2[1]));
         } else {
             let numbers = [extractNumeric(maleAndFemaleData[0]), extractNumeric(maleAndFemaleData[1])];
+            minLength = Math.min(numbers[0], numbers[1]);
+            maxLength = Math.max(numbers[0], numbers[1]);
             length = average(numbers[0], numbers[1]);
         }
     } else {
-        if(dash) {
+        if (dash) {
             let dashedArray = birdString.split("-");
             let numbers = [extractNumeric(dashedArray[0]), extractNumeric(dashedArray[1])];
             length = average(numbers[0], numbers[1]);
+            minLength = Math.min(numbers[0], numbers[1]);
+            maxLength = Math.max(numbers[0], numbers[1]);
         } else {
             length = extractNumeric(birdString);
+            minLength = length;
+            maxLength = length;
         }
     }
 
-    bird["lengthRaw"] = length;
+    bird["lengthAv"] = length;
+    bird["minLength"] = minLength;
+    bird["maxLength"] = maxLength;
 }
 
 function addWeightProperty(bird) {
@@ -289,6 +303,8 @@ function addWeightProperty(bird) {
     let kg = birdString.includes("kg");
     let dash = birdString.includes("-");
     let comma = birdString.includes(",");
+    let minWeight;
+    let maxWeight;
     let dualData = birdString.includes("male") || birdString.includes("northern");
     if (dualData) {
         let dualDataArray;
@@ -302,24 +318,36 @@ function addWeightProperty(bird) {
             let dashedArray2 = dualDataArray[1].split("-");
             let numbers1 = [extractNumeric(dashedArray1[0]), extractNumeric(dashedArray1[1])];
             let numbers2 = [extractNumeric(dashedArray2[0]), extractNumeric(dashedArray2[1])];
+            minWeight = Math.min(numbers1[0], numbers1[1], numbers2[0], numbers2[1]);
+            maxWeight = Math.max(numbers1[0], numbers1[1], numbers2[0], numbers2[1]);
             weight = average(average(numbers1[0], numbers1[1]), average(numbers2[0], numbers2[1]));
         } else {
             let numbers = [extractNumeric(dualDataArray[0]), extractNumeric(dualDataArray[1])];
+            minWeight = Math.min(numbers[0], numbers[1]);
+            maxWeight = Math.max(numbers[0], numbers[1]);
             weight = average(numbers[0], numbers[1]);
         }
     } else if (dash) {
         let dashedArray = birdString.split("-");
         let numbers = [extractNumeric(dashedArray[0]), extractNumeric(dashedArray[1])];
+        minWeight = Math.min(numbers[0], numbers[1]);
+        maxWeight = Math.max(numbers[0], numbers[1]);
         weight = average(numbers[0], numbers[1]);
     } else {
         weight = extractNumeric(birdString);
+        minWeight = weight;
+        maxWeight = weight;
     }
 
     if (kg) {
+        minWeight = minWeight * 1000;
+        maxWeight = maxWeight * 1000;
         weight = weight * 1000;
     }
 
-    bird["weightRaw"] = weight;
+    bird["weightAv"] = weight;
+    bird["minWeight"] = minWeight;
+    bird["maxWeight"] = maxWeight;
 }
 
 // Given a string, extract the numeric value from it and parse as a number.
@@ -334,11 +362,11 @@ function average(a, b) {
 }
 
 function sortByLength(array) {
-    return array.sort((a, b) => a.lengthRaw - b.lengthRaw);
+    return array.sort((a, b) => a.lengthAv - b.lengthAv);
 }
 
 function sortByWeight(array) {
-    return array.sort((a, b) => a.weightRaw - b.weightRaw);
+    return array.sort((a, b) => a.weightAv - b.weightAv);
 }
 
 

@@ -102,12 +102,29 @@
     width: 75%;
 }
 
+.input-field {
+    display: inline;
+    width: 120px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
+    border: 1.8px solid black;
+}
+
 #search-bar {
     width: 240px;
 }
 
 .filter-label {
     display: flex;
+    font-size: 12px;
+    padding: 10px;
+    font-weight: bold;
+    font-family: "Proxima Nova", sans-serif;
+}
+
+.filter-label-span {
     font-size: 12px;
     padding: 10px;
     font-weight: bold;

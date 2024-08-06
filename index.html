@@ -48,6 +48,21 @@
                 <option value="short-long">Shortest to Longest</option>
                 <option value="long-short">Longest to Shortest</option>
             </select>
+
+            <label class="filter-label">Filter by Weight</label>
+            <div class="form-container">
+                <input id="input-weight-min" type="text" class="input-field" placeholder="Lower bound (g)">
+                <span class="filter-label-span">to</span>
+                <input id="input-weight-max" type="text" class="input-field" placeholder="Upper bound (g)">
+            </div>
+
+            <label class="filter-label">Filter by Length</label>
+            <div class="form-container">
+                <input id="input-length-min" type="text" class="input-field" placeholder="Lower bound (cm)">
+                <span class="filter-label-span">to</span>
+                <input id="input-length-max" type="text" class="input-field" placeholder="Upper bound (cm)">
+            </div>
+
             <button type="submit" id="filter-button" class="filter-button">FILTER RESULTS</button>
         </form> 
         

@@ -65,8 +65,6 @@ function displayData(data) {
     //sort by other filter...
     for (let bird of birdlist) {
         handleBirdData(bird);
-        //console.log(bird.length + " " + bird.minLength + " " + bird.maxLength+ " " + bird.lengthAv);
-        console.log(bird.weight + " " + bird.minWeight + " " + bird.maxWeight + " " + bird.weightAv);
     }
 
     if (otherFilter.localeCompare("light-heavy") == 0) {

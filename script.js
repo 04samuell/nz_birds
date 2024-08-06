@@ -39,10 +39,12 @@ function fetchErrorCallback(error) {
 function displayData(data) {
 
     let searchElement = document.getElementById("search-bar");
-    let searchResult = normalizeString(searchElement.value).toLowerCase();
-    if (searchResult === null) {
-        searchResult = "";
-    }
+    let searchResult = normalizeString(searchElement.value).toLowerCase(); if(searchResult === null) searchResult = "";
+    let minWeight = document.querySelector("#input-weight-min").value; if(minWeight === null) minWeight = "";
+    let maxWeight = document.querySelector("#input-weight-max").value; if(maxWeight === null) maxWeight = "";
+    let minLength = document.querySelector("#input-length-min").value; if(minLength === null) minLength = "";
+    let maxLength = document.querySelector("#input-length-max").value; if(maxLength === null) maxLength = "";
+    
     let conservationStatus = document.querySelector("#conservation-filter").value.trim().toLowerCase();
     let otherFilter = document.querySelector("#other-filter").value.trim().toLowerCase();
 
@@ -67,6 +69,11 @@ function displayData(data) {
         handleBirdData(bird);
     }
 
+    birdlist = getBirdsInRangeLength(birdlist, minLength, maxLength);
+    if(birdlist == null) return;
+    birdlist = getBirdsInRangeWeight(birdlist, minWeight, maxWeight);
+    if(birdlist == null) return;
+
     if (otherFilter.localeCompare("light-heavy") == 0) {
         birdlist = sortByWeight(birdlist);
     } else if (otherFilter.localeCompare("heavy-light") == 0) {
@@ -86,14 +93,15 @@ function displayData(data) {
     }
 
     if (birdlist.length == 0) {
-        displayNoBirdsFound();
+        displayError("No birds found.");
     }
 }
 
-function displayNoBirdsFound() {
+function displayError(message) {
     let main = document.getElementById("image-content");
+    main.innerHTML = "";
     let h2 = document.createElement("h2");
-    h2.textContent = "No results";
+    h2.textContent = message;
     h2.classList.add("no-birds-found");
     main.appendChild(document.createElement("h2"));
     main.appendChild(h2);
@@ -346,6 +354,56 @@ function addWeightProperty(bird) {
     bird["weightAv"] = weight;
     bird["minWeight"] = minWeight;
     bird["maxWeight"] = maxWeight;
+}
+
+function getBirdsInRangeLength(birds, minLength, maxLength) {
+    if(minLength === "") {
+        minLength = 0;
+    } else {
+        minLength = Number(minLength);
+    }
+    if(maxLength === "") {
+        maxLength = Number.MAX_VALUE;
+    } else {
+        maxLength = Number(maxLength);
+    }
+    if(isNaN(minLength)|| isNaN(maxLength)) {
+        displayError("Error parsing length");
+        return null;
+    } else if(minLength < 0 || maxLength < 0) {
+        displayError("Length must be a positive number");
+        return null;
+    } else if(minLength > maxLength) {
+        displayError("Max length must be greater than min length.");
+        return null;
+    }
+
+    return birds.filter(bird => bird.minLength >= minLength && bird.maxLength <= maxLength);  
+}
+
+function getBirdsInRangeWeight(birds, minWeight, maxWeight) {
+    if(minWeight === "") {
+        minWeight = 0;
+    } else {
+        minWeight = Number(minWeight);
+    }
+    if(maxWeight === "") {
+        maxWeight = Number.MAX_VALUE;
+    } else {
+        maxWeight = Number(maxWeight);
+    }
+    if(isNaN(minWeight)|| isNaN(maxWeight)) {
+        displayError("Error parsing weight");
+        return null;
+    } else if(minWeight < 0 || maxWeight < 0) {
+        displayError("Weight must be a positive number");
+        return null;
+    } else if(minWeight > maxWeight) {
+        displayError("Max weight must be greater than min weight");
+        return null;
+    }
+
+    return birds.filter(bird => bird.minWeight >= minWeight && bird.maxWeight <= maxWeight);
 }
 
 // Given a string, extract the numeric value from it and parse as a number.

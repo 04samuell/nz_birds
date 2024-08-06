@@ -39,7 +39,7 @@ function fetchErrorCallback(error) {
 function displayData(data) {
 
     let searchElement = document.getElementById("search-bar");
-    let searchResult = searchElement.value;
+    let searchResult = normalizeString(searchElement.value).toLowerCase();
     if (searchResult === null) {
         searchResult = "";
     }
@@ -49,7 +49,6 @@ function displayData(data) {
     let birdlist = [];
     for (let bird of data) {
         let validNames = getValidNames(bird);
-        console.log(searchResult)
         if (searchResult === "" || containsName(validNames, searchResult)) { // check if the search result is in the list of names validNames
             let status = bird.status.replaceAll(" ", "").toLowerCase();
             if (conservationStatus === "all" || conservationStatus.localeCompare(status) == 0) { // check if the conservation status matched the birds conservation status || conservationStatus.includes(conservationStatus)
@@ -98,14 +97,13 @@ function containsName(names, searchResult) {
 }
 
 function getValidNames(bird) {
-    //noramlize all these?
     validNames = [];
-    validNames.push(bird.common_name.toLowerCase().normalize("NFC"));
-    validNames.push(bird.scientific_name.toLowerCase().normalize("NFC"));
-    validNames.push(bird.original_name.toLowerCase().normalize("NFC"));
+    validNames.push(normalizeString(bird.common_name.toLowerCase()));
+    validNames.push(normalizeString(bird.scientific_name.toLowerCase()));
+    validNames.push(normalizeString(bird.original_name.toLowerCase()));
     
     for(let name of bird.other_name){
-        validNames.push(name.toLowerCase().normalize("NFC"));
+        validNames.push(normalizeString(name.toLowerCase()));
     }
 
     return validNames;
@@ -233,6 +231,10 @@ function getStausColor(status) {
             return "grey";
     }
 }
+
+function normalizeString(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
 
 
 setUp();

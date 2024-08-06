@@ -64,9 +64,17 @@ function displayData(data) {
 
     //sort by other filter...
     for (let bird of birdlist) {
-        handleBirdData(bird);
-        console.log(bird.length + " " + bird.lengthRaw);
-        //console.log(bird.weight + " " + bird.weightRaw);
+        handleBirdData(bird);        
+    }
+
+    if(otherFilter.localeCompare("light-heavy") == 0) {
+        birdlist = sortByWeight(birdlist);
+    } else if(otherFilter.localeCompare("heavy-light") == 0) {
+        birdlist = sortByWeight(birdlist).reverse();
+    } else if(otherFilter.localeCompare("short-long") == 0) {
+        birdlist = sortByLength(birdlist);
+    } else {
+        birdlist = sortByLength(birdlist).reverse();
     }
 
     let main = document.getElementById("image-content");
@@ -323,6 +331,14 @@ function extractNumeric(str) {
 // Given two numbers, return their average.
 function average(a, b) {
     return (a + b) / 2;
+}
+
+function sortByLength(array) {
+    return array.sort((a, b) => a.lengthRaw - b.lengthRaw);
+}
+
+function sortByWeight(array) {
+    return array.sort((a, b) => a.weightRaw - b.weightRaw);
 }
 
 

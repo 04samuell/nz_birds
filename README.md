@@ -34,7 +34,7 @@ Edge Cases:
 
 - If any field is left blank, then either 0 (min field) or <code>Number.MAX_VALUE</code> (max field) are substituted in accordingly.
 
-- The bird is included in search results if the inputted range intersects at all with the range of the birds value. For example if the bird has weight between 300g - 700g: 
+- The bird is included in search results if the inputted range intersects at all with the range of the birds value. For example, consider a bird with weight between 300g - 700g: 
     - A search between 400g and 500g will return true 
     - A search between 200g and 400g will also return true 
     - But a search between 0g and 200g will return false. 

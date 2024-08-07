@@ -385,9 +385,7 @@ function getBirdsInRangeLength(birds, minLength, maxLength) {
 
     birdsResults = []
     for (bird of birds) {
-        if (bird.minLength >= minLength && bird.minLength <= maxLength) {
-            birdsResults.push(bird);
-        } else if (bird.maxLength >= minLength && bird.maxLength <= maxLength) {
+        if (!(bird.minLength > minLength && bird.maxLength < maxLength)) {
             birdsResults.push(bird);
         }
     }
@@ -420,9 +418,7 @@ function getBirdsInRangeWeight(birds, minWeight, maxWeight) {
 
     birdsResults = []
     for (bird of birds) {
-        if (bird.minWeight >= minWeight && bird.minWeight <= maxWeight) {
-            birdsResults.push(bird);
-        } else if (bird.maxWeight >= minWeight && bird.maxWeight <= maxWeight) {
+        if (!(bird.minWeight > minWeight && bird.maxWeight < maxWeight)) {
             birdsResults.push(bird);
         }
     }

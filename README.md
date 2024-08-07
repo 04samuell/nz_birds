@@ -6,21 +6,24 @@
 
 [NZ Birds Website Link](https://leesa178.cspages.otago.ac.nz/cosc203/)
 
-## Known Issues
-
-Detail about known issues...
-When sorting and a value for male and female is given, the larger of the two is used
-
 ## Extra Features
 
-Sort results by weight/ length.
+To each bird object I added some extra data:
 
-The sorting works as follows:
+- Min/Max Weight
+- Min/Max Height
+- Average Weight
+- Average Height
 
-    - When I load the data in I add an additional JSON property max weight and max height
+All weight values are in grams for weight and centimetres for height.
 
-    - This property deals with the case where male and female data is given e.g weight: male 50g female 35g
+This allowed for the following features:
 
-    - All weight values are given in grams and all length values are given in cm
-    
-    - When the data is queried, the resulting array of birds objects is sorted based on the inputed sorting condition
+> 1. Sorting
+
+The data can be sorted by both weight ot height in both ascending and descending. 
+
+> 2. Advanced filtering
+
+By inputting a min and max weight/height value you can filter the results accordingly.
+The bird is displayed if **either** the min or max value is within the bounds of the filter radius.  

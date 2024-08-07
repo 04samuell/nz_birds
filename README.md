@@ -32,6 +32,6 @@ Edge Cases:
 
 - If min value > max value then the values are swapped.
 
-- If any field is left blank, the values are treated as 0 for the min field and <code>Number.MAX_VALUE</code> for the max field.
+- If any field is left blank, then either 0 (min field) or <code>Number.MAX_VALUE</code> (max field) are substituted in accordingly.
 
 - Any error parsing the input values is reported to the user (e.g if they input non-numeric characters)

@@ -11,7 +11,6 @@ function setUp() {
 }
 
 function retrieveAndDisplayData() {
-    console.log("Retrieving data...");
     fetch(URL)
         .then(responseCallback) //processes server response (checks for status code == 200 => Success)
         .then(dataReadyCallback)
@@ -20,10 +19,8 @@ function retrieveAndDisplayData() {
 
 function responseCallback(response) {
     if (response.status != 200) {
-        console.log("Server responded with status: " + response);
         return; // something has gone wrong
     } else {
-        console.log("all googl")
         return response.text(); // all good
     }
 
@@ -50,9 +47,7 @@ function displayData(data) {
 
     let conservationStatus = document.querySelector("#conservation-filter").value.trim().toLowerCase();
     let otherFilter = document.querySelector("#other-filter").value.trim().toLowerCase();
-    
-    console.log(searchResult, minWeight, maxWeight, minLength, maxLength, conservationStatus, otherFilter);
-    console.log(data);
+
     let birdlist = [];
     for (let bird of data) {
         let validNames = getValidNames(bird);
@@ -64,21 +59,16 @@ function displayData(data) {
         }
     }
 
-    console.log("birdlist: " + birdlist);
     //get metadata about bird length and weight
     for (let bird of birdlist) {
         handleBirdData(bird);
     }
-
-    console.log("post handle: " + birdlist);
 
     //filter birds based on user input
     birdlist = getBirdsInRangeLength(birdlist, minLength, maxLength);
     if (birdlist == null) return;
     birdlist = getBirdsInRangeWeight(birdlist, minWeight, maxWeight);
     if (birdlist == null) return;
-
-    console.log("post filter: " + birdlist.length);
 
     if (otherFilter.localeCompare("light-heavy") == 0) {
         birdlist = sortByWeight(birdlist);
@@ -89,8 +79,6 @@ function displayData(data) {
     } else {
         birdlist = sortByLength(birdlist).reverse();
     }
-
-    //console.log("post sort: " + birdlist.length);  
 
     //show bird counter
     let counter = document.getElementById("bird-counter");
@@ -393,17 +381,13 @@ function getBirdsInRangeLength(birds, minLength, maxLength) {
         minLength = maxLength;
         maxLength = temp;
     }
-    console.log("minLength: " + minLength + " maxLength: " + maxLength);
-    console.log("birds: " + birds.length);  
 
     birdsResults = []
     for (bird of birds) {
         add = true;
-        if (bird.minLength < minLength && bird.maxLength > maxLength) {
+        if (bird.minLength < minLength && bird.maxLength < minLength) {
             add = false;
-        } else if(bird.minLength < minLength && bird.maxLength < minLength) {
-            add = false;
-        } else if(bird.minLength > maxLength && bird.maxLength > maxLength) {
+        } else if (bird.minLength > maxLength && bird.maxLength > maxLength) {
             add = false;
         }
         if (add) {
@@ -440,11 +424,9 @@ function getBirdsInRangeWeight(birds, minWeight, maxWeight) {
     birdsResults = []
     for (bird of birds) {
         add = true;
-        if (bird.minWeight < minWeight && bird.maxWeight > maxWeight) {
+        if (bird.minWeight < minWeight && bird.maxWeight < minWeight) {
             add = false;
-        } else if(bird.minWeight < minWeight && bird.maxWeight < minWeight) {
-            add = false;
-        } else if(bird.minWeight > maxWeight && bird.maxWeight > maxWeight) {
+        } else if (bird.minWeight > maxWeight && bird.maxWeight > maxWeight) {
             add = false;
         }
         if (add) {
@@ -471,9 +453,7 @@ function sortByLength(array) {
 }
 
 function sortByWeight(array) {
-    console.log("sorting by weight" + array.length)
     return array.sort((a, b) => a.weightAv - b.weightAv);
 }
 
-console.log("Hello")
 setUp();

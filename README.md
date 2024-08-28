@@ -1,6 +1,4 @@
 # Samuel Lee - NZ Birds Website
-> Student ID: 1874730
-> COSC203 Assignment 1
 
 ## Website Link
 

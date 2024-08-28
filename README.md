@@ -1,4 +1,4 @@
-# Samuel Lee - NZ Birds Website
+# NZ Birds Website
 
 ## Website Link
 
